@@ -8,6 +8,7 @@ import connectCloudinary from "./config/cloudinary.js";
 import songRouter from "./routes/songRoute.js";
 import albumRouter from "./routes/albumRoute.js";
 import authRouter from "./routes/authRoute.js";
+import playlistRouter from "./routes/playlistRoute.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use("/api/song", songRouter);
 app.use("/api/album", albumRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/playlist", playlistRouter);
 
 const startServer = async () => {
     try {

@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useRef } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import DisplayHome from './DisplayHome'
 import DisplayAlbum from './DisplayAlbum'
+import PlaylistList from './PlaylistList'
+import PlaylistDetail from './PlaylistDetail'
 import { PlayerContext } from '../../context/PlayerContext'
 
 const Display = () => {
@@ -26,6 +28,8 @@ const Display = () => {
       <Routes>
         <Route path='/' element={<DisplayHome />} />
         <Route path='/album/:id' element={<DisplayAlbum />} />
+        <Route path='/playlists' element={<PlaylistList />} />
+        <Route path='/playlist/:id' element={<PlaylistDetail />} />
       </Routes>
     </div>
   )

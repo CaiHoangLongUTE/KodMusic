@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { assets } from '../../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import { PlayerContext } from '../../context/PlayerContext'
+import CreatePlaylistModal from './CreatePlaylistModal'
 
 const Sidebar = () => {
 
   const navigate = useNavigate();
+  const { playlistsData } = useContext(PlayerContext);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const handlePlaylistClick = () => {
+    if (playlistsData && playlistsData.length > 0) {
+      navigate('/playlists');
+    } else {
+      setShowCreateModal(true);
+    }
+  };
 
   return (
     <div className='w-[25%] h-full p-2 flex-col gap-2 text-white hidden lg:flex'>
@@ -31,9 +43,20 @@ const Sidebar = () => {
           </div>
         </div>
         <div className='p-4 bg-[#242424] rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mx-4'>
-          <h1>Create your playlist</h1>
-          <p className='font-light'>it's easy we will help you</p>
-          <button className='px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4'>Create PlayList</button>
+          <h1>
+            {playlistsData && playlistsData.length > 0 ? 'Your Playlists' : 'Create your playlist'}
+          </h1>
+          <p className='font-light'>
+            {playlistsData && playlistsData.length > 0
+              ? `${playlistsData.length} playlist${playlistsData.length > 1 ? 's' : ''}`
+              : "it's easy we will help you"}
+          </p>
+          <button
+            onClick={handlePlaylistClick}
+            className='px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4'
+          >
+            {playlistsData && playlistsData.length > 0 ? 'Playlists' : 'Create PlayList'}
+          </button>
         </div>
         <div className='p-4 bg-[#242424] rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mx-4 mt-4'>
           <h1>Let's find some podcasts to follow</h1>
@@ -41,6 +64,10 @@ const Sidebar = () => {
           <button className='px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4'>Browse podcasts</button>
         </div>
       </div>
+
+      {showCreateModal && (
+        <CreatePlaylistModal onClose={() => setShowCreateModal(false)} />
+      )}
     </div>
   )
 }

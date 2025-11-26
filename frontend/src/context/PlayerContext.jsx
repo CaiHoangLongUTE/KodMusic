@@ -12,6 +12,8 @@ const PlayerContextProvider = (props) => {
 
   const [songsData, setSongsData] = useState([]);
   const [albumsData, setAlbumsData] = useState([]);
+  const [playlistsData, setPlaylistsData] = useState([]);
+  const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [track, setTrack] = useState(null);
   const [playStatus, setPlayStatus] = useState(false);
   const [time, setTime] = useState({
@@ -42,9 +44,27 @@ const PlayerContextProvider = (props) => {
     }
   };
 
+  const fetchPlaylists = async (userId) => {
+    try {
+      if (!userId) return;
+      const res = await axios.get(`${url}/api/playlist/user/${userId}`);
+      if (res.data.playlists) {
+        setPlaylistsData(res.data.playlists);
+      }
+    } catch (error) {
+      console.error('Error fetching playlists:', error);
+    }
+  };
+
   useEffect(() => {
     fetchSongs();
     fetchAlbums();
+
+    // Fetch playlists if user is logged in
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      fetchPlaylists(userId);
+    }
   }, []);
 
   const play = () => {
@@ -60,6 +80,7 @@ const PlayerContextProvider = (props) => {
   const playWithId = async (id) => {
     const song = songsData.find(s => s._id === id);
     if (song) {
+      setCurrentPlaylist(null); // Clear playlist mode
       await setTrack(song);
       await audioRef.current.play();
       setPlayStatus(true);
@@ -67,18 +88,53 @@ const PlayerContextProvider = (props) => {
   }
 
   const previous = async () => {
-    const currentIndex = songsData.findIndex(s => s._id === track._id);
-    if (currentIndex > 0) {
-      await setTrack(songsData[currentIndex - 1]);
-      await audioRef.current.play();
-      setPlayStatus(true);
+    if (currentPlaylist && currentPlaylist.songs && currentPlaylist.songs.length > 0) {
+      const currentIndex = currentPlaylist.songs.findIndex(s => s._id === track?._id);
+      if (currentIndex > 0) {
+        setTrack(currentPlaylist.songs[currentIndex - 1]);
+        setTimeout(() => {
+          audioRef.current.play();
+          setPlayStatus(true);
+        }, 100);
+      }
+    } else {
+      const currentIndex = songsData.findIndex(s => s._id === track?._id);
+      if (currentIndex > 0) {
+        setTrack(songsData[currentIndex - 1]);
+        setTimeout(() => {
+          audioRef.current.play();
+          setPlayStatus(true);
+        }, 100);
+      }
     }
   }
 
   const next = async () => {
-    const currentIndex = songsData.findIndex(s => s._id === track._id);
-    if (currentIndex < songsData.length - 1) {
-      await setTrack(songsData[currentIndex + 1]);
+    if (currentPlaylist && currentPlaylist.songs && currentPlaylist.songs.length > 0) {
+      const currentIndex = currentPlaylist.songs.findIndex(s => s._id === track?._id);
+      if (currentIndex < currentPlaylist.songs.length - 1) {
+        setTrack(currentPlaylist.songs[currentIndex + 1]);
+        setTimeout(() => {
+          audioRef.current.play();
+          setPlayStatus(true);
+        }, 100);
+      }
+    } else {
+      const currentIndex = songsData.findIndex(s => s._id === track?._id);
+      if (currentIndex < songsData.length - 1) {
+        setTrack(songsData[currentIndex + 1]);
+        setTimeout(() => {
+          audioRef.current.play();
+          setPlayStatus(true);
+        }, 100);
+      }
+    }
+  }
+
+  const playPlaylist = async (playlist) => {
+    if (playlist && playlist.songs && playlist.songs.length > 0) {
+      setCurrentPlaylist(playlist);
+      await setTrack(playlist.songs[0]);
       await audioRef.current.play();
       setPlayStatus(true);
     }
@@ -110,8 +166,37 @@ const PlayerContextProvider = (props) => {
           },
         });
       };
+
+      // Auto-advance to next song when current song ends
+      audioRef.current.onended = () => {
+        if (currentPlaylist && currentPlaylist.songs) {
+          const currentIndex = currentPlaylist.songs.findIndex(s => s._id === track._id);
+          if (currentIndex < currentPlaylist.songs.length - 1) {
+            setTrack(currentPlaylist.songs[currentIndex + 1]);
+            setTimeout(() => {
+              audioRef.current.play();
+              setPlayStatus(true);
+            }, 100);
+          } else {
+            setPlayStatus(false);
+            setCurrentPlaylist(null);
+          }
+        } else {
+          // Regular next song behavior
+          const currentIndex = songsData.findIndex(s => s._id === track._id);
+          if (currentIndex < songsData.length - 1) {
+            setTrack(songsData[currentIndex + 1]);
+            setTimeout(() => {
+              audioRef.current.play();
+              setPlayStatus(true);
+            }, 100);
+          } else {
+            setPlayStatus(false);
+          }
+        }
+      };
     }
-  }, [audioRef]);
+  }, [audioRef, currentPlaylist, track, songsData]);
 
   const contextValue = {
     audioRef, seekBar, seekBg,
@@ -120,7 +205,10 @@ const PlayerContextProvider = (props) => {
     time, setTime,
     play, pause, playWithId,
     previous, next, seekSong,
-    songsData, albumsData
+    songsData, albumsData,
+    playlistsData, setPlaylistsData,
+    currentPlaylist, setCurrentPlaylist,
+    fetchPlaylists, playPlaylist
   }
 
   return (

@@ -24,7 +24,13 @@ const AuthContextProvider = (props) => {
     const fetchProfile = async () => {
         try {
             const res = await axios.get(`${url}/api/auth/profile`, { headers: { Authorization: `Bearer ${token}` } });
-            if (res.data.user) setUser(res.data.user);
+            if (res.data.user) {
+                setUser(res.data.user);
+                // Store userId for playlist operations
+                if (res.data.user._id) {
+                    localStorage.setItem('userId', res.data.user._id);
+                }
+            }
         } catch (error) {
             console.error("Failed to fetch profile:", error);
             logout();
@@ -37,6 +43,10 @@ const AuthContextProvider = (props) => {
             if (res.data.token) {
                 setToken(res.data.token);
                 setUser(res.data.user);
+                // Store userId for playlist operations
+                if (res.data.user && res.data.user.id) {
+                    localStorage.setItem('userId', res.data.user.id);
+                }
                 return { success: true, message: res.data.message };
             }
         } catch (error) {
@@ -57,6 +67,7 @@ const AuthContextProvider = (props) => {
         setToken(null);
         setUser(null);
         setIsLoggedIn(false);
+        localStorage.removeItem('userId');
     };
 
     const contextValue = { user, token, isLoggedIn, login, register, logout };
