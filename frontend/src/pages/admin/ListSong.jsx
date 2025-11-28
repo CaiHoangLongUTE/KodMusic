@@ -20,6 +20,16 @@ const ListSong = () => {
     }
   }
 
+  const removeSong = async (id) => {
+    try {
+      await axios.delete(`${url}/api/song/remove`, { data: { id } });
+      toast.success("Song removed successfully");
+      fetchSongs();
+    } catch (error) {
+      toast.error("Error removing song");
+    }
+  }
+
   useEffect(() => {
     fetchSongs();
   }, []);
@@ -70,15 +80,7 @@ const ListSong = () => {
                 <td className='p-3'>{song.duration}</td>
                 <td className='p-3'>
                   <button
-                    onClick={async () => {
-                      try {
-                        await axios.delete(`${url}/api/song/remove`, { data: { id: song._id } });
-                        toast.success("Song removed successfully");
-                        fetchSongs();
-                      } catch (error) {
-                        toast.error("Error removing song");
-                      }
-                    }}
+                    onClick={() => removeSong(song._id)}
                     className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600'
                   >
                     Delete

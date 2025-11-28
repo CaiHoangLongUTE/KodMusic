@@ -47,3 +47,21 @@ export const getProfile = async (req, res) => {
         return res.status(500).json({ message: `Failed to fetch profile: ${error.message}` });
     }
 };
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find({}).select('-password');
+        res.json({ success: true, users });
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+};
+
+export const removeUser = async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.body.id);
+        res.json({ success: true, message: "User removed" });
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+};

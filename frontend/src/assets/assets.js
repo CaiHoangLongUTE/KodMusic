@@ -33,8 +33,10 @@ import song_icon from './song_icon.png'
 import album_icon from './album_icon.png'
 import upload_song from './upload_song.png'
 import music_note from './music-note.png'
+import user_icon from './user.png'
 
 export const assets = {
+    user_icon,
     music_note,
     bell_icon,
     home_icon,

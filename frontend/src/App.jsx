@@ -13,6 +13,7 @@ import AddSong from './pages/admin/AddSong';
 import AddAlbum from './pages/admin/AddAlbum';
 import ListSong from './pages/admin/ListSong';
 import ListAlbum from './pages/admin/ListAlbum';
+import ListUser from './pages/admin/ListUser';
 import AdminLayout from './components/admin/AdminLayout';
 
 export const url = 'http://localhost:8000';
@@ -45,6 +46,7 @@ const App = () => {
           <Route path='list-song' element={<ListSong />} />
           <Route path='add-album' element={<AddAlbum />} />
           <Route path='list-album' element={<ListAlbum />} />
+          <Route path='list-user' element={<ListUser />} />
         </Route>
       </Routes>
     </div>

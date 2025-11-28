@@ -24,6 +24,16 @@ const ListAlbum = () => {
     }
   }
 
+  const removeAlbum = async (id) => {
+    try {
+      await axios.delete(`${url}/api/album/remove`, { data: { id } });
+      toast.success("Album removed successfully");
+      fetchAlbums();
+    } catch (error) {
+      toast.error("Error removing album");
+    }
+  }
+
   useEffect(() => {
     fetchAlbums();
   }, []);
@@ -76,15 +86,7 @@ const ListAlbum = () => {
                 </td>
                 <td className='p-3'>
                   <button
-                    onClick={async () => {
-                      try {
-                        await axios.delete(`${url}/api/album/remove`, { data: { id: album._id } });
-                        toast.success("Album removed successfully");
-                        fetchAlbums();
-                      } catch (error) {
-                        toast.error("Error removing album");
-                      }
-                    }}
+                    onClick={() => removeAlbum(album._id)}
                     className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600'
                   >
                     Delete
