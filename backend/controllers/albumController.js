@@ -51,3 +51,21 @@ export const removeAlbum = async (req, res) => {
         return res.status(500).json({ message: `Error removing album: ${error.message}` });
     }
 };
+
+export const searchAlbums = async (req, res) => {
+    try {
+        const { query } = req.query;
+        if (!query) return res.json({ albums: [] });
+
+        const albums = await Album.find({
+            $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { desc: { $regex: query, $options: 'i' } }
+            ]
+        }).limit(20).sort({ createdAt: -1 });
+
+        return res.json({ message: 'Search completed', albums });
+    } catch (error) {
+        return res.status(500).json({ message: `Error searching albums: ${error.message}` });
+    }
+};

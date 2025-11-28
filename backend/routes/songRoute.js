@@ -1,5 +1,5 @@
 import express from 'express';
-import { addSong, listSongs, removeSong } from '../controllers/songController.js';
+import { addSong, listSongs, removeSong, searchSongs } from '../controllers/songController.js';
 import upload from '../middleware/multer.js';
 
 const songRouter = express.Router();
@@ -12,6 +12,9 @@ songRouter.post('/add', upload.fields([
 
 // List all songs
 songRouter.get('/list', listSongs);
+
+// Search songs
+songRouter.get('/search', searchSongs);
 
 // Remove song
 songRouter.delete('/remove', removeSong);

@@ -6,7 +6,8 @@ import {
     updatePlaylist,
     deletePlaylist,
     addSongToPlaylist,
-    removeSongFromPlaylist
+    removeSongFromPlaylist,
+    searchPlaylists
 } from '../controllers/playlistController.js';
 import upload from '../middleware/multer.js';
 
@@ -19,6 +20,9 @@ playlistRouter.post('/create', upload.fields([
 
 // Get all playlists for a user
 playlistRouter.get('/user/:userId', getUserPlaylists);
+
+// Search playlists
+playlistRouter.get('/search', searchPlaylists);
 
 // Get playlist by ID with songs
 playlistRouter.get('/:id', getPlaylistById);

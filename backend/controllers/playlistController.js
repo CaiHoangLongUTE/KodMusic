@@ -194,3 +194,31 @@ export const removeSongFromPlaylist = async (req, res) => {
         return res.status(500).json({ message: `Error removing song from playlist: ${error.message}` });
     }
 };
+
+// Search playlists
+export const searchPlaylists = async (req, res) => {
+    try {
+        const { query, userId } = req.query;
+        if (!query) return res.json({ playlists: [] });
+
+        const searchCriteria = {
+            $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { description: { $regex: query, $options: 'i' } }
+            ]
+        };
+
+        // If userId is provided, only search user's playlists
+        if (userId) {
+            searchCriteria.userId = userId;
+        }
+
+        const playlists = await Playlist.find(searchCriteria)
+            .limit(20)
+            .sort({ createdAt: -1 });
+
+        return res.json({ message: 'Search completed', playlists });
+    } catch (error) {
+        return res.status(500).json({ message: `Error searching playlists: ${error.message}` });
+    }
+};

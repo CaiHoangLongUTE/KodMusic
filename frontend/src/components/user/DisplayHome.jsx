@@ -9,9 +9,7 @@ const DisplayHome = () => {
 
   return (
     <>
-      <div className='sticky top-0 bg-[#121212] z-10 pb-4'>
-        <Navbar />
-      </div>
+      <Navbar />
       <div className='mb-4'>
         <h1 className='my-5 font-bold text-2xl'>Featured Charts</h1>
         <div className='flex overflow-auto'>

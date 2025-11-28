@@ -65,3 +65,21 @@ export const removeSong = async (req, res) => {
         return res.status(500).json({ message: `Error removing song: ${error.message}` });
     }
 };
+
+export const searchSongs = async (req, res) => {
+    try {
+        const { query } = req.query;
+        if (!query) return res.json({ songs: [] });
+
+        const songs = await Song.find({
+            $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { desc: { $regex: query, $options: 'i' } }
+            ]
+        }).limit(20).sort({ createdAt: -1 });
+
+        return res.json({ message: 'Search completed', songs });
+    } catch (error) {
+        return res.status(500).json({ message: `Error searching songs: ${error.message}` });
+    }
+};

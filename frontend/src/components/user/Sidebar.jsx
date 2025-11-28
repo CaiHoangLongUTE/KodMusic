@@ -3,12 +3,14 @@ import { assets } from '../../assets/assets'
 import { useNavigate } from 'react-router-dom'
 import { PlayerContext } from '../../context/PlayerContext'
 import CreatePlaylistModal from './CreatePlaylistModal'
+import SearchModal from './SearchModal'
 
 const Sidebar = () => {
 
   const navigate = useNavigate();
   const { playlistsData } = useContext(PlayerContext);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
 
   const handlePlaylistClick = () => {
     if (playlistsData && playlistsData.length > 0) {
@@ -25,7 +27,7 @@ const Sidebar = () => {
           <img className='w-6' src={assets.home_icon} alt="" />
           <p className='font-bold'>Home</p>
         </div>
-        <div className='flex items-center gap-3 pl-8 cursor-pointer'>
+        <div onClick={() => setShowSearchModal(true)} className='flex items-center gap-3 pl-8 cursor-pointer'>
           <img className='w-6' src={assets.search_icon} alt="" />
           <p className='font-bold'>Search</p>
         </div>
@@ -67,6 +69,10 @@ const Sidebar = () => {
 
       {showCreateModal && (
         <CreatePlaylistModal onClose={() => setShowCreateModal(false)} />
+      )}
+
+      {showSearchModal && (
+        <SearchModal onClose={() => setShowSearchModal(false)} />
       )}
     </div>
   )
