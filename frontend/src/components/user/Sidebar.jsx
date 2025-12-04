@@ -4,15 +4,21 @@ import { useNavigate } from 'react-router-dom'
 import { PlayerContext } from '../../context/PlayerContext'
 import CreatePlaylistModal from './CreatePlaylistModal'
 import SearchModal from './SearchModal'
+import { AuthContext } from '../../context/AuthContext'
 
 const Sidebar = () => {
 
   const navigate = useNavigate();
   const { playlistsData } = useContext(PlayerContext);
+  const { token } = useContext(AuthContext);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
   const handlePlaylistClick = () => {
+    if (!token) {
+      navigate('/login');
+      return;
+    }
     if (playlistsData && playlistsData.length > 0) {
       navigate('/playlists');
     } else {

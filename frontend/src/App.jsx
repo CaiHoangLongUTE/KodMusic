@@ -7,7 +7,7 @@ import Login from './pages/user/Login'
 import Register from './pages/user/Register'
 import { PlayerContext } from './context/PlayerContext'
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddSong from './pages/admin/AddSong';
 import AddAlbum from './pages/admin/AddAlbum';
