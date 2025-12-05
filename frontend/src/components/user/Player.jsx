@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import { assets } from '../../assets/assets'
 import { PlayerContext } from '../../context/PlayerContext'
-
+import {Repeat, Volume, Volume1Icon, Volume2Icon, VolumeOff} from 'lucide-react'
 const Player = () => {
-
-  const { track, seekBar, seekBg, playStatus, play, pause, time, previous, next, seekSong } = useContext(PlayerContext);
+  const { track, seekBar, seekBg, playStatus, play, pause, time, previous, next, seekSong, isLoop, setIsLoop, volume, handleVolumeChange } = useContext(PlayerContext);
 
   return (
     <div className='h-[10%] bg-black grid grid-cols-3 items-center text-white px-4'>
@@ -27,7 +26,8 @@ const Player = () => {
             : (<img onClick={play} className='w-4 cursor-pointer' src={assets.play_icon} alt="" />)
           }
           <img onClick={next} className='w-4 cursor-pointer' src={assets.next_icon} alt="" />
-          <img className='w-4 cursor-pointer' src={assets.loop_icon} alt="" />
+          <i onClick={()=>{setIsLoop(prev => !prev)} } className={`cursor-pointer ${isLoop && "text-green-800"}`} ><Repeat  size={16}/></i>
+          {/* <img onClick={() => {console.log('loop')}} className='w-4 cursor-pointer' src={assets.loop_icon} alt="" /> */}
         </div>
         <div className='flex items-center gap-5 w-full max-w-[500px]'>
           <p className='text-xs'>{time.currentTime.minute}:{time.currentTime.second.toString().padStart(2, '0')}</p>
@@ -44,8 +44,18 @@ const Player = () => {
         <img className='w-4' src={assets.mic_icon} alt="" />
         <img className='w-4' src={assets.queue_icon} alt="" />
         <img className='w-4' src={assets.speaker_icon} alt="" />
-        <img className='w-4' src={assets.volume_icon} alt="" />
-        <div className='w-20 bg-slate-50 h-1 rounded'></div>
+        <i>{volume === 0 ? <VolumeOff/> : (volume > 0.8 ?<Volume2Icon/>:<Volume1Icon/>) }</i>
+        {/* <img className='w-4' src={assets.volume_icon} alt="" /> */}
+        <input 
+          type="range" 
+          min={0} 
+          max={1} 
+          step={0.01} 
+          value={volume} 
+          onChange={handleVolumeChange}
+          // className='w-full h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-runnable-track]:bg-green-600 [&::-webkit-slider-runnable-track]:appearance-none'
+      />
+        {/* <div className='w-20 bg-slate-50 h-1 rounded'></div> */}
         <img className='w-4' src={assets.mini_player_icon} alt="" />
         <img className='w-4' src={assets.zoom_icon} alt="" />
       </div>

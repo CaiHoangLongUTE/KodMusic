@@ -1,10 +1,13 @@
 import { createContext, useState, useRef, useEffect } from "react";
 import axios from 'axios';
 import { url } from '../App';
+import { useLocation } from "react-router-dom";
 
 export const PlayerContext = createContext();
 
 const PlayerContextProvider = (props) => {
+  const {pathname} = useLocation();
+  const albumId = pathname.split('/')[2];
 
   const audioRef = useRef();
   const seekBar = useRef();
@@ -20,6 +23,8 @@ const PlayerContextProvider = (props) => {
     currentTime: { second: 0, minute: 0 },
     totalTime: { second: 0, minute: 0 }
   })
+  const [isLoop, setIsLoop] = useState(false);
+  const [volume, setVolume] = useState(1);
 
   const fetchSongs = async () => {
     try {
@@ -149,6 +154,12 @@ const PlayerContextProvider = (props) => {
     }
   };
 
+  const handleVolumeChange = (e) => {
+    const v = Number(e.target.value);
+    setVolume(v);
+    audioRef.current.volume = v;
+  }
+
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.ontimeupdate = () => {
@@ -169,6 +180,11 @@ const PlayerContextProvider = (props) => {
 
       // Auto-advance to next song when current song ends
       audioRef.current.onended = () => {
+        if(isLoop){
+          audioRef.current.currentTime = 0;
+          audioRef.current.play();
+          return;
+        }
         if (currentPlaylist && currentPlaylist.songs) {
           const currentIndex = currentPlaylist.songs.findIndex(s => s._id === track._id);
           if (currentIndex < currentPlaylist.songs.length - 1) {
@@ -196,7 +212,10 @@ const PlayerContextProvider = (props) => {
         }
       };
     }
-  }, [audioRef, currentPlaylist, track, songsData]);
+
+    return () => {
+    }
+  }, [audioRef, currentPlaylist, track, songsData, isLoop]);
 
   const contextValue = {
     audioRef, seekBar, seekBg,
@@ -208,7 +227,9 @@ const PlayerContextProvider = (props) => {
     songsData, albumsData,
     playlistsData, setPlaylistsData,
     currentPlaylist, setCurrentPlaylist,
-    fetchPlaylists, playPlaylist
+    fetchPlaylists, playPlaylist,
+    isLoop, setIsLoop,
+    volume, handleVolumeChange
   }
 
   return (
