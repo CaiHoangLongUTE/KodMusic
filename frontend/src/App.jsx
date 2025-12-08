@@ -30,7 +30,7 @@ const App = () => {
 
         {/* User Routes */}
         <Route path="/*" element={
-          <>
+          <>  
             <div className='h-[90%] flex'>
               <Sidebar />
               <Display />

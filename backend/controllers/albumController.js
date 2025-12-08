@@ -32,6 +32,15 @@ export const listAlbums = async (req, res) => {
     }
 };
 
+export const getAlbum = async (req, res) => {
+    console.log(req.params);
+    try {
+        // const album = await Album.find({id:})
+    } catch (error) {
+    
+    }    
+}
+
 export const removeAlbum = async (req, res) => {
     try {
         const { id } = req.body;
