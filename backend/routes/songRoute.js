@@ -1,5 +1,5 @@
 import express from 'express';
-import { addSong, listSongs, removeSong, searchSongs } from '../controllers/songController.js';
+import { addSong, listSongs, removeSong, searchSongs, updateSong } from '../controllers/songController.js';
 import upload from '../middleware/multer.js';
 
 const songRouter = express.Router();
@@ -9,6 +9,12 @@ songRouter.post('/add', upload.fields([
     { name: 'image', maxCount: 1 },
     { name: 'audio', maxCount: 1 }
 ]), addSong);
+
+// Update song
+songRouter.post('/update', upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'audio', maxCount: 1 }
+]), updateSong);
 
 // List all songs
 songRouter.get('/list', listSongs);

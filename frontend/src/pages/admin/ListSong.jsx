@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { url } from '../../App';
 import { toast } from 'react-toastify';
 
+import { useNavigate } from 'react-router-dom';
 const ListSong = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const fetchSongs = async () => {
     try {
@@ -15,7 +17,7 @@ const ListSong = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching songs:', error);
-      toast.error(error.response?.data?.message || "Error occurred while fetching songs");
+      toast.error(error.response?.data?.message || "Lỗi khi lấy danh sách bài hát");
       setLoading(false);
     }
   }
@@ -23,10 +25,10 @@ const ListSong = () => {
   const removeSong = async (id) => {
     try {
       await axios.delete(`${url}/api/song/remove`, { data: { id } });
-      toast.success("Song removed successfully");
+      toast.success("Xóa bài hát thành công");
       fetchSongs();
     } catch (error) {
-      toast.error("Error removing song");
+      toast.error("Lỗi khi xóa bài hát");
     }
   }
 
@@ -45,12 +47,12 @@ const ListSong = () => {
   return (
     <div>
       <div className='flex justify-between items-center mb-8'>
-        <h2 className='text-2xl font-bold'>All Songs</h2>
+        <h2 className='text-2xl font-bold'>Tất cả bài hát</h2>
         <button
           onClick={() => fetchSongs()}
           className='px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700'
         >
-          Refresh
+          Làm mới
         </button>
       </div>
 
@@ -58,11 +60,11 @@ const ListSong = () => {
         <table className='w-full min-w-[800px] border-collapse'>
           <thead>
             <tr className='bg-gray-100'>
-              <th className='p-3 text-left'>Image</th>
-              <th className='p-3 text-left'>Name</th>
+              <th className='p-3 text-left'>Hình ảnh</th>
+              <th className='p-3 text-left'>Tên</th>
               <th className='p-3 text-left'>Album</th>
-              <th className='p-3 text-left'>Duration</th>
-              <th className='p-3 text-left'>Actions</th>
+              <th className='p-3 text-left'>Thời lượng</th>
+              <th className='p-3 text-left'>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -80,10 +82,16 @@ const ListSong = () => {
                 <td className='p-3'>{song.duration}</td>
                 <td className='p-3'>
                   <button
+                    onClick={() => navigate(`/admin/edit-song/${song._id}`)}
+                    className='px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 mr-2'
+                  >
+                    Sửa
+                  </button>
+                  <button
                     onClick={() => removeSong(song._id)}
                     className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600'
                   >
-                    Delete
+                    Xóa
                   </button>
                 </td>
               </tr>
@@ -93,7 +101,7 @@ const ListSong = () => {
 
         {data.length === 0 && (
           <div className='text-center py-8 text-gray-500'>
-            No songs found
+            Không tìm thấy bài hát nào
           </div>
         )}
       </div>

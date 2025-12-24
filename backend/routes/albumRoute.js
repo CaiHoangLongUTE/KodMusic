@@ -1,5 +1,5 @@
 import express from 'express';
-import { addAlbum, getAlbum, listAlbums, removeAlbum, searchAlbums } from '../controllers/albumController.js';
+import { addAlbum, getAlbum, listAlbums, removeAlbum, searchAlbums, updateAlbum } from '../controllers/albumController.js';
 import upload from '../middleware/multer.js';
 
 const albumRouter = express.Router();
@@ -8,6 +8,11 @@ const albumRouter = express.Router();
 albumRouter.post('/add', upload.fields([
     { name: 'image', maxCount: 1 }
 ]), addAlbum);
+
+// Update album
+albumRouter.post('/update', upload.fields([
+    { name: 'image', maxCount: 1 }
+]), updateAlbum);
 
 // List all albums
 albumRouter.get('/list', listAlbums);

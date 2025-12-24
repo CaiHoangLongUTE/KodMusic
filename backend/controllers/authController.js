@@ -5,43 +5,43 @@ import jwt from 'jsonwebtoken';
 export const register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
-        if (!name || !email || !password) return res.status(400).json({ message: 'All fields are required' });
+        if (!name || !email || !password) return res.status(400).json({ message: 'Tất cả các trường là bắt buộc' });
 
         const existingUser = await User.findOne({ email });
-        if (existingUser) return res.status(400).json({ message: 'Email already registered' });
+        if (existingUser) return res.status(400).json({ message: 'Email đã được đăng ký' });
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({ name, email, password: hashedPassword });
         await user.save();
 
-        return res.json({ message: 'Registration successful' });
+        return res.json({ message: 'Đăng ký thành công' });
     } catch (error) {
-        return res.status(500).json({ message: `Registration failed: ${error.message}` });
+        return res.status(500).json({ message: `Đăng ký thất bại: ${error.message}` });
     }
 };
 
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
+        if (!email || !password) return res.status(400).json({ message: 'Email và mật khẩu là bắt buộc' });
 
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!user) return res.status(400).json({ message: 'Thông tin đăng nhập không hợp lệ' });
 
         const validPassword = await bcrypt.compare(password, user.password);
-        if (!validPassword) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!validPassword) return res.status(400).json({ message: 'Thông tin đăng nhập không hợp lệ' });
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
-        return res.json({ message: 'Login successful', token, user: { id: user._id, name: user.name, email: user.email } });
+        return res.json({ message: 'Đăng nhập thành công', token, user: { id: user._id, name: user.name, email: user.email } });
     } catch (error) {
-        return res.status(500).json({ message: `Login failed: ${error.message}` });
+        return res.status(500).json({ message: `Đăng nhập thất bại: ${error.message}` });
     }
 };
 
 export const getProfile = async (req, res) => {
     try {
         const user = await User.findById(req.userId).select('-password');
-        if (!user) return res.status(404).json({ message: 'User not found' });
+        if (!user) return res.status(404).json({ message: 'Không tìm thấy người dùng' });
         return res.json({ message: 'Profile fetched', user });
     } catch (error) {
         return res.status(500).json({ message: `Failed to fetch profile: ${error.message}` });

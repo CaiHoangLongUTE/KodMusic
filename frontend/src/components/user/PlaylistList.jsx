@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 const PlaylistList = () => {
     const navigate = useNavigate();
     const { playlistsData, fetchPlaylists } = useContext(PlayerContext);
+
     const [searchTerm, setSearchTerm] = useState('');
     const [showEditModal, setShowEditModal] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
@@ -33,7 +34,7 @@ const PlaylistList = () => {
     };
 
     const handleDelete = async (playlistId) => {
-        if (!window.confirm('Are you sure you want to delete this playlist?')) {
+        if (!window.confirm('Bạn có chắc chắn muốn xóa playlist này không?')) {
             return;
         }
 
@@ -47,81 +48,100 @@ const PlaylistList = () => {
                 }
             }
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error deleting playlist');
+            toast.error(error.response?.data?.message || 'Lỗi khi xóa playlist');
         }
     };
 
     return (
-        <div className='w-full px-6 pt-4'>
-            <div className='flex items-center justify-between mb-6'>
-                <h1 className='text-white text-3xl font-bold'>Your Playlists</h1>
+        <div className="w-full px-6 pt-4">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+                <h1 className="text-white text-3xl font-bold">
+                    Playlist của bạn
+                </h1>
                 <button
                     onClick={() => setShowCreateModal(true)}
-                    className='px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition'
+                    className="px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition"
                 >
-                    Create New Playlist
+                    Tạo playlist mới
                 </button>
             </div>
 
-            <div className='mb-6'>
+            {/* Tìm kiếm */}
+            <div className="mb-6">
                 <input
-                    type='text'
-                    placeholder='Search playlists...'
+                    type="text"
+                    placeholder="Tìm kiếm playlist..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className='w-full max-w-md p-3 rounded-full bg-[#242424] text-white outline-none'
+                    className="w-full max-w-md p-3 rounded-full bg-[#242424] text-white outline-none"
                 />
             </div>
 
+            {/* Danh sách playlist */}
             {filteredPlaylists.length === 0 ? (
-                <div className='text-center text-gray-400 mt-10'>
-                    <p className='text-xl'>No playlists found</p>
-                    <p className='mt-2'>Create your first playlist to get started!</p>
+                <div className="text-center text-gray-400 mt-10">
+                    <p className="text-xl">
+                        Không tìm thấy playlist nào
+                    </p>
+                    <p className="mt-2">
+                        Hãy tạo playlist đầu tiên của bạn!
+                    </p>
                 </div>
             ) : (
-                <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {filteredPlaylists.map((playlist) => (
                         <div
                             key={playlist._id}
-                            className='bg-[#181818] p-4 rounded-lg hover:bg-[#282828] transition cursor-pointer group'
+                            className="bg-[#181818] p-4 rounded-lg hover:bg-[#282828] transition cursor-pointer group"
                         >
                             <div onClick={() => navigate(`/playlist/${playlist._id}`)}>
-                                <div className='relative mb-4'>
+                                <div className="relative mb-4">
                                     {playlist.image ? (
                                         <img
                                             src={playlist.image}
                                             alt={playlist.name}
-                                            className='w-full aspect-square object-cover rounded'
+                                            className="w-full aspect-square object-cover rounded"
                                         />
                                     ) : (
-                                        <div className='w-full aspect-square bg-[#282828] rounded flex items-center justify-center'>
-                                            <img src={assets.stack_icon} alt='' className='w-12 opacity-50' />
+                                        <div className="w-full aspect-square bg-[#282828] rounded flex items-center justify-center">
+                                            <img
+                                                src={assets.stack_icon}
+                                                alt=""
+                                                className="w-12 opacity-50"
+                                            />
                                         </div>
                                     )}
                                 </div>
-                                <h3 className='text-white font-semibold truncate'>{playlist.name}</h3>
-                                <p className='text-gray-400 text-sm mt-1'>
-                                    {playlist.songs?.length || 0} song{playlist.songs?.length !== 1 ? 's' : ''}
+
+                                <h3 className="text-white font-semibold truncate">
+                                    {playlist.name}
+                                </h3>
+
+                                <p className="text-gray-400 text-sm mt-1">
+                                    {playlist.songs?.length || 0} bài hát
                                 </p>
                             </div>
-                            <div className='flex gap-2 mt-3'>
+
+                            {/* Nút hành động */}
+                            <div className="flex gap-2 mt-3">
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         handleEdit(playlist);
                                     }}
-                                    className='flex-1 px-3 py-1.5 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition'
+                                    className="flex-1 px-3 py-1.5 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition"
                                 >
-                                    Edit
+                                    Sửa
                                 </button>
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         handleDelete(playlist._id);
                                     }}
-                                    className='flex-1 px-3 py-1.5 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition'
+                                    className="flex-1 px-3 py-1.5 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition"
                                 >
-                                    Delete
+                                    Xóa
                                 </button>
                             </div>
                         </div>
@@ -129,6 +149,7 @@ const PlaylistList = () => {
                 </div>
             )}
 
+            {/* Modal sửa playlist */}
             {showEditModal && selectedPlaylist && (
                 <EditPlaylistModal
                     playlist={selectedPlaylist}
@@ -139,8 +160,11 @@ const PlaylistList = () => {
                 />
             )}
 
+            {/* Modal tạo playlist */}
             {showCreateModal && (
-                <CreatePlaylistModal onClose={() => setShowCreateModal(false)} />
+                <CreatePlaylistModal
+                    onClose={() => setShowCreateModal(false)}
+                />
             )}
         </div>
     );

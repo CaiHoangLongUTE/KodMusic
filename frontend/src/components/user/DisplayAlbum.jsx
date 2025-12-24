@@ -20,7 +20,7 @@ const DisplayAlbum = () => {
   };
 
   if (!albumData) {
-    return <div className='text-white p-8'>Album not found</div>
+    return <div className='text-white p-8'>Không tìm thấy Album</div>
   }
 
   return (
@@ -35,9 +35,9 @@ const DisplayAlbum = () => {
       </div>
 
       <div className='grid grid-cols-3 sm:grid-cols-4 mt-10 mb-4 pl-2 text-[#a7a7a7]'>
-        <p><b className='mr-4'>#</b>Title</p>
+        <p><b className='mr-4'>#</b>Tiêu đề</p>
         <p>Album</p>
-        <p className='hidden sm:block'>Date Added</p>
+        <p className='hidden sm:block'>Ngày thêm</p>
         <img className='m-auto w-4' src={assets.clock_icon} alt="" />
       </div>
       <hr />
@@ -45,18 +45,18 @@ const DisplayAlbum = () => {
         albumSongs.length > 0 ? (
           albumSongs.map((song, index) => (
             <div onClick={() => playWithId(song._id)} className='grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer' key={song._id}>
-              <p className='text-white'>
-                <b className='mr-4 text-[#a7a7a7]'>{index + 1}</b>
-                <img className='inline w-10 mr-5' src={song.image} alt="" />
-                {song.name}
-              </p>
-              <p className='text-[15px]'>{albumData.name}</p>
+              <div className='flex items-center text-white min-w-0 pr-4'>
+                <b className='mr-4 text-[#a7a7a7] shrink-0'>{index + 1}</b>
+                <img className='inline w-10 mr-5 shrink-0' src={song.image} alt="" />
+                <span className='truncate'>{song.name}</span>
+              </div>
+              <p className='text-[15px] truncate'>{albumData.name}</p>
               <p className='text-[15px] hidden sm:block'>{formatDate(song.createdAt)}</p>
               <p className='text-[15px] flex items-center justify-center'>{song.duration}</p>
             </div>
           ))
         ) : (
-          <div className='text-white p-8'>No songs in this album yet</div>
+          <div className='text-white p-8'>Chưa có bài hát nào trong album này</div>
         )
       }
     </>
