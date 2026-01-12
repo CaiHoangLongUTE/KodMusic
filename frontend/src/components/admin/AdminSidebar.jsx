@@ -12,23 +12,23 @@ const AdminSidebar = () => {
             <div className='flex flex-col gap-5 mt-10'>
                 <NavLink to='/admin/add-song' className='flex items-center gap-2.5 text-gray-800 bg-white border border-black p-2 pr-[max(8vw,10px)] drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium'>
                     <img src={assets.add_song} className='w-5' alt="" />
-                    <p className='hidden sm:block'>Add Song</p>
+                    <p className='hidden sm:block'>Thêm bài hát</p>
                 </NavLink>
                 <NavLink to='/admin/list-song' className='flex items-center gap-2.5 text-gray-800 bg-white border border-black p-2 pr-[max(8vw,10px)] drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium'>
                     <img src={assets.song_icon} className='w-5' alt="" />
-                    <p className='hidden sm:block'>List Song</p>
+                    <p className='hidden sm:block'>Danh sách bài hát</p>
                 </NavLink>
                 <NavLink to='/admin/add-album' className='flex items-center gap-2.5 text-gray-800 bg-white border border-black p-2 pr-[max(8vw,10px)] drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium'>
                     <img src={assets.add_album} className='w-5' alt="" />
-                    <p className='hidden sm:block'>Add Album</p>
+                    <p className='hidden sm:block'>Thêm album</p>
                 </NavLink>
                 <NavLink to='/admin/list-album' className='flex items-center gap-2.5 text-gray-800 bg-white border border-black p-2 pr-[max(8vw,10px)] drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium'>
                     <img src={assets.album_icon} className='w-5' alt="" />
-                    <p className='hidden sm:block'>List Album</p>
+                    <p className='hidden sm:block'>Danh sách album</p>
                 </NavLink>
                 <NavLink to='/admin/list-user' className='flex items-center gap-2.5 text-gray-800 bg-white border border-black p-2 pr-[max(8vw,10px)] drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium'>
                     <img src={assets.user_icon} className='w-5' alt="" />
-                    <p className='hidden sm:block'>List User</p>
+                    <p className='hidden sm:block'>Danh sách người dùng</p>
                 </NavLink>
             </div>
         </div>

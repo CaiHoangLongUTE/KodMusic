@@ -81,7 +81,7 @@ const SearchModal = ({ onClose }) => {
                         <img className="w-6" src={assets.search_icon} alt="Search" />
                         <input
                             type="text"
-                            placeholder="What do you want to listen to?"
+                            placeholder="Bạn muốn nghe gì?"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             autoFocus
@@ -100,26 +100,26 @@ const SearchModal = ({ onClose }) => {
                 <div className="overflow-y-auto max-h-[calc(80vh-100px)] p-6">
                     {isLoading && (
                         <div className="text-center text-gray-400 py-8">
-                            Searching...
+                            Đang tìm kiếm...
                         </div>
                     )}
 
                     {!isLoading && searchQuery && !hasResults && (
                         <div className="text-center text-gray-400 py-8">
-                            No results found for "{searchQuery}"
+                            Không tìm thấy kết quả cho "{searchQuery}"
                         </div>
                     )}
 
                     {!searchQuery && (
                         <div className="text-center text-gray-400 py-8">
-                            Start typing to search for songs, albums, or playlists
+                            Nhập để tìm kiếm bài hát, album hoặc danh sách phát
                         </div>
                     )}
 
                     {/* Songs Section */}
                     {searchResults.songs.length > 0 && (
                         <div className="mb-8">
-                            <h2 className="text-white text-xl font-bold mb-4">Songs</h2>
+                            <h2 className="text-white text-xl font-bold mb-4">Bài hát</h2>
                             <div className="space-y-2">
                                 {searchResults.songs.map((song) => (
                                     <div
@@ -148,7 +148,7 @@ const SearchModal = ({ onClose }) => {
                     {/* Albums Section */}
                     {searchResults.albums.length > 0 && (
                         <div className="mb-8">
-                            <h2 className="text-white text-xl font-bold mb-4">Albums</h2>
+                            <h2 className="text-white text-xl font-bold mb-4">Album</h2>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                 {searchResults.albums.map((album) => (
                                     <div
@@ -172,7 +172,7 @@ const SearchModal = ({ onClose }) => {
                     {/* Playlists Section */}
                     {searchResults.playlists.length > 0 && (
                         <div className="mb-8">
-                            <h2 className="text-white text-xl font-bold mb-4">Playlists</h2>
+                            <h2 className="text-white text-xl font-bold mb-4">Danh sách phát</h2>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                 {searchResults.playlists.map((playlist) => (
                                     <div
@@ -187,7 +187,7 @@ const SearchModal = ({ onClose }) => {
                                         />
                                         <p className="text-white font-medium truncate">{playlist.name}</p>
                                         <p className="text-gray-400 text-sm truncate">
-                                            {playlist.description || 'Playlist'}
+                                            {playlist.description || 'Danh sách phát'}
                                         </p>
                                     </div>
                                 ))}

@@ -25,7 +25,7 @@ const SongItem = ({ name, image, desc, id }) => {
         <button
           onClick={handleAddToPlaylist}
           className='absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 bg-green-500 text-white p-2 rounded-full hover:bg-green-600 hover:scale-110 transition-all shadow-lg z-10'
-          title='Add to playlist'
+          title='Thêm vào danh sách phát'
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

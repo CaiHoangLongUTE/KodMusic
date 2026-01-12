@@ -24,7 +24,7 @@ const AddSongsModal = ({ playlistId, onClose, onSongsAdded }) => {
 
     const handleAddSongs = async () => {
         if (selectedSongs.length === 0) {
-            toast.error('Please select at least one song');
+            toast.error('Vui lòng chọn ít nhất một bài hát');
             return;
         }
 
@@ -36,11 +36,11 @@ const AddSongsModal = ({ playlistId, onClose, onSongsAdded }) => {
                     songId
                 });
             }
-            toast.success(`${selectedSongs.length} song(s) added to playlist`);
+            toast.success(`${selectedSongs.length} bài hát đã được thêm vào danh sách phát`);
             onSongsAdded();
             onClose();
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error adding songs');
+            toast.error(error.response?.data?.message || 'Lỗi khi thêm bài hát');
         } finally {
             setLoading(false);
         }
@@ -49,12 +49,12 @@ const AddSongsModal = ({ playlistId, onClose, onSongsAdded }) => {
     return (
         <div className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50'>
             <div className='bg-[#282828] rounded-lg p-6 w-[90%] max-w-2xl max-h-[80vh] flex flex-col'>
-                <h2 className='text-white text-2xl font-bold mb-4'>Add Songs to Playlist</h2>
+                <h2 className='text-white text-2xl font-bold mb-4'>Thêm bài hát vào danh sách phát</h2>
 
                 <div className='mb-4'>
                     <input
                         type='text'
-                        placeholder='Search songs...'
+                        placeholder='Tìm kiếm bài hát...'
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className='w-full p-2 rounded bg-[#3e3e3e] text-white outline-none'
@@ -63,7 +63,7 @@ const AddSongsModal = ({ playlistId, onClose, onSongsAdded }) => {
 
                 <div className='flex-1 overflow-y-auto mb-4'>
                     {filteredSongs.length === 0 ? (
-                        <p className='text-gray-400 text-center py-8'>No songs found</p>
+                        <p className='text-gray-400 text-center py-8'>Không tìm thấy bài hát nào</p>
                     ) : (
                         <div className='space-y-2'>
                             {filteredSongs.map((song) => (
@@ -71,8 +71,8 @@ const AddSongsModal = ({ playlistId, onClose, onSongsAdded }) => {
                                     key={song._id}
                                     onClick={() => toggleSong(song._id)}
                                     className={`flex items-center gap-3 p-3 rounded cursor-pointer transition ${selectedSongs.includes(song._id)
-                                            ? 'bg-green-500 bg-opacity-20'
-                                            : 'bg-[#3e3e3e] hover:bg-[#4e4e4e]'
+                                        ? 'bg-green-500 bg-opacity-20'
+                                        : 'bg-[#3e3e3e] hover:bg-[#4e4e4e]'
                                         }`}
                                 >
                                     <input
@@ -99,7 +99,7 @@ const AddSongsModal = ({ playlistId, onClose, onSongsAdded }) => {
 
                 <div className='flex gap-3 justify-between items-center'>
                     <p className='text-white'>
-                        {selectedSongs.length} song{selectedSongs.length !== 1 ? 's' : ''} selected
+                        {selectedSongs.length} bài hát đã chọn
                     </p>
                     <div className='flex gap-3'>
                         <button
@@ -108,14 +108,14 @@ const AddSongsModal = ({ playlistId, onClose, onSongsAdded }) => {
                             className='px-6 py-2 bg-transparent border border-white text-white rounded-full hover:bg-white hover:text-black transition'
                             disabled={loading}
                         >
-                            Cancel
+                            Hủy
                         </button>
                         <button
                             onClick={handleAddSongs}
                             className='px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition'
                             disabled={loading}
                         >
-                            {loading ? 'Adding...' : 'Add Songs'}
+                            {loading ? 'Đang thêm...' : 'Thêm bài hát'}
                         </button>
                     </div>
                 </div>

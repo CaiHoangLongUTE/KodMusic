@@ -22,7 +22,7 @@ const SelectPlaylistModal = ({ songId, songName, onClose }) => {
                 playlistId,
                 songId
             });
-            toast.success(`Added "${songName}" to playlist`);
+            toast.success(`Đã thêm "${songName}" vào danh sách phát`);
 
             // Refresh playlists to update song counts
             const userId = localStorage.getItem('userId') || user?._id;
@@ -33,9 +33,9 @@ const SelectPlaylistModal = ({ songId, songName, onClose }) => {
             onClose();
         } catch (error) {
             if (error.response?.data?.message?.includes('already exists')) {
-                toast.warning('Song already in this playlist');
+                toast.warning('Bài hát đã có trong danh sách phát này');
             } else {
-                toast.error(error.response?.data?.message || 'Error adding song to playlist');
+                toast.error(error.response?.data?.message || 'Lỗi khi thêm bài hát vào danh sách phát');
             }
         } finally {
             setLoading(false);
@@ -51,17 +51,17 @@ const SelectPlaylistModal = ({ songId, songName, onClose }) => {
                 className='bg-[#282828] rounded-lg p-6 w-[90%] max-w-md max-h-[70vh] flex flex-col'
                 onClick={(e) => e.stopPropagation()}
             >
-                <h2 className='text-white text-2xl font-bold mb-4'>Add to Playlist</h2>
-                <p className='text-gray-400 mb-4'>Select a playlist for "{songName}"</p>
+                <h2 className='text-white text-2xl font-bold mb-4'>Thêm vào danh sách phát</h2>
+                <p className='text-gray-400 mb-4'>Chọn danh sách phát cho "{songName}"</p>
 
                 {playlistsData.length === 0 ? (
                     <div className='text-center py-8'>
-                        <p className='text-gray-400 mb-4'>You don't have any playlists yet</p>
+                        <p className='text-gray-400 mb-4'>Bạn chưa có danh sách phát nào</p>
                         <button
                             onClick={onClose}
                             className='px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition'
                         >
-                            Create a Playlist First
+                            Tạo danh sách phát trước
                         </button>
                     </div>
                 ) : (
@@ -69,7 +69,7 @@ const SelectPlaylistModal = ({ songId, songName, onClose }) => {
                         <div className='mb-4'>
                             <input
                                 type='text'
-                                placeholder='Search playlists...'
+                                placeholder='Tìm kiếm danh sách phát...'
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className='w-full p-2 rounded bg-[#3e3e3e] text-white outline-none'
@@ -78,7 +78,7 @@ const SelectPlaylistModal = ({ songId, songName, onClose }) => {
 
                         <div className='flex-1 overflow-y-auto mb-4'>
                             {filteredPlaylists.length === 0 ? (
-                                <p className='text-gray-400 text-center py-4'>No playlists found</p>
+                                <p className='text-gray-400 text-center py-4'>Không tìm thấy danh sách phát nào</p>
                             ) : (
                                 <div className='space-y-2'>
                                     {filteredPlaylists.map((playlist) => (
@@ -101,7 +101,7 @@ const SelectPlaylistModal = ({ songId, songName, onClose }) => {
                                             <div className='flex-1'>
                                                 <p className='text-white font-semibold'>{playlist.name}</p>
                                                 <p className='text-gray-400 text-sm'>
-                                                    {playlist.songs?.length || 0} song{playlist.songs?.length !== 1 ? 's' : ''}
+                                                    {playlist.songs?.length || 0} bài hát
                                                 </p>
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@ const SelectPlaylistModal = ({ songId, songName, onClose }) => {
                             className='w-full px-6 py-2 bg-transparent border border-white text-white rounded-full hover:bg-white hover:text-black transition'
                             disabled={loading}
                         >
-                            Cancel
+                            Hủy
                         </button>
                     </>
                 )}

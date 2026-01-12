@@ -31,7 +31,7 @@ const AddAlbum = () => {
         setColor("#121212");
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Error adding album");
+      toast.error(error.response?.data?.message || "Lỗi khi thêm album");
     }
     setLoading(false);
   }
@@ -43,23 +43,23 @@ const AddAlbum = () => {
   ) : (
     <form onSubmit={onSubmitHandler} className='flex flex-col items-start gap-8 text-gray-600'>
       <div className='flex flex-col gap-4'>
-        <p>Upload Image</p>
+        <p>Tải lên hình ảnh</p>
         <input onChange={(e) => setImage(e.target.files[0])} type="file" id='image' accept='image/*' hidden />
         <label htmlFor="image">
           <img className='w-24 cursor-pointer' src={image ? URL.createObjectURL(image) : assets.upload_area} alt="Upload" />
         </label>
       </div>
       <div className='flex flex-col gap-2.5'>
-        <p>Album Name</p>
-        <input onChange={(e) => setName(e.target.value)} value={name} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]' type="text" placeholder='Type here' />
-        <p>Album Description</p>
-        <input onChange={(e) => setDesc(e.target.value)} value={desc} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]' type="text" placeholder='Type here' />
+        <p>Tên album</p>
+        <input onChange={(e) => setName(e.target.value)} value={name} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]' type="text" placeholder='Nhập vào đây' />
+        <p>Mô tả album</p>
+        <input onChange={(e) => setDesc(e.target.value)} value={desc} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]' type="text" placeholder='Nhập vào đây' />
       </div>
       <div className='flex flex-col gap-3'>
-        <p>Background Color</p>
+        <p>Màu nền</p>
         <input onChange={(e) => setColor(e.target.value)} value={color} type="color" />
       </div>
-      <button className='text-base bg-black text-white py-2.5 px-14 cursor-pointer' type="submit">ADD</button>
+      <button className='text-base bg-black text-white py-2.5 px-14 cursor-pointer' type="submit">THÊM</button>
     </form>
   )
 }

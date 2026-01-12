@@ -12,7 +12,7 @@ const Player = () => {
       <div className='hidden lg:flex items-center gap-4 min-w-0'>
         <img className='w-14 h-14 rounded object-cover' src={track?.image || assets.spotify_logo} alt="" />
         <div className='min-w-0 max-w-[200px]'>
-          <p className='truncate font-medium text-sm'>{track?.name || 'No song playing'}</p>
+          <p className='truncate font-medium text-sm'>{track?.name || 'Chưa có bài hát nào'}</p>
           <p className='text-xs text-gray-400 truncate'>{track?.desc || ''}</p>
         </div>
       </div>

@@ -33,7 +33,7 @@ const PlaylistList = () => {
     };
 
     const handleDelete = async (playlistId) => {
-        if (!window.confirm('Are you sure you want to delete this playlist?')) {
+        if (!window.confirm('Bạn có chắc chắn muốn xóa danh sách phát này không?')) {
             return;
         }
 
@@ -47,26 +47,26 @@ const PlaylistList = () => {
                 }
             }
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error deleting playlist');
+            toast.error(error.response?.data?.message || 'Lỗi khi xóa danh sách phát');
         }
     };
 
     return (
         <div className='w-full px-6 pt-4'>
             <div className='flex items-center justify-between mb-6'>
-                <h1 className='text-white text-3xl font-bold'>Your Playlists</h1>
+                <h1 className='text-white text-3xl font-bold'>Danh sách phát của bạn</h1>
                 <button
                     onClick={() => setShowCreateModal(true)}
                     className='px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition'
                 >
-                    Create New Playlist
+                    Tạo danh sách phát mới
                 </button>
             </div>
 
             <div className='mb-6'>
                 <input
                     type='text'
-                    placeholder='Search playlists...'
+                    placeholder='Tìm kiếm danh sách phát...'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className='w-full max-w-md p-3 rounded-full bg-[#242424] text-white outline-none'
@@ -75,8 +75,8 @@ const PlaylistList = () => {
 
             {filteredPlaylists.length === 0 ? (
                 <div className='text-center text-gray-400 mt-10'>
-                    <p className='text-xl'>No playlists found</p>
-                    <p className='mt-2'>Create your first playlist to get started!</p>
+                    <p className='text-xl'>Không tìm thấy danh sách phát nào</p>
+                    <p className='mt-2'>Tạo danh sách phát đầu tiên của bạn để bắt đầu!</p>
                 </div>
             ) : (
                 <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
@@ -101,7 +101,7 @@ const PlaylistList = () => {
                                 </div>
                                 <h3 className='text-white font-semibold truncate'>{playlist.name}</h3>
                                 <p className='text-gray-400 text-sm mt-1'>
-                                    {playlist.songs?.length || 0} song{playlist.songs?.length !== 1 ? 's' : ''}
+                                    {playlist.songs?.length || 0} bài hát
                                 </p>
                             </div>
                             <div className='flex gap-2 mt-3'>
@@ -112,7 +112,7 @@ const PlaylistList = () => {
                                     }}
                                     className='flex-1 px-3 py-1.5 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition'
                                 >
-                                    Edit
+                                    Sửa
                                 </button>
                                 <button
                                     onClick={(e) => {
@@ -121,7 +121,7 @@ const PlaylistList = () => {
                                     }}
                                     className='flex-1 px-3 py-1.5 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition'
                                 >
-                                    Delete
+                                    Xóa
                                 </button>
                             </div>
                         </div>

@@ -17,7 +17,7 @@ const CreatePlaylistModal = ({ onClose }) => {
         e.preventDefault();
 
         if (!name.trim()) {
-            toast.error('Please enter a playlist name');
+            toast.error('Vui lòng nhập tên danh sách phát');
             return;
         }
 
@@ -29,7 +29,7 @@ const CreatePlaylistModal = ({ onClose }) => {
         }
 
         if (!userId) {
-            toast.error('Please login to create a playlist');
+            toast.error('Vui lòng đăng nhập để tạo danh sách phát');
             return;
         }
 
@@ -50,7 +50,7 @@ const CreatePlaylistModal = ({ onClose }) => {
                 onClose();
             }
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error creating playlist');
+            toast.error(error.response?.data?.message || 'Lỗi khi tạo danh sách phát');
         } finally {
             setLoading(false);
         }
@@ -59,31 +59,31 @@ const CreatePlaylistModal = ({ onClose }) => {
     return (
         <div className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50'>
             <div className='bg-[#282828] rounded-lg p-6 w-[90%] max-w-md'>
-                <h2 className='text-white text-2xl font-bold mb-4'>Create Playlist</h2>
+                <h2 className='text-white text-2xl font-bold mb-4'>Tạo danh sách phát</h2>
                 <form onSubmit={handleSubmit}>
                     <div className='mb-4'>
-                        <label className='text-white block mb-2'>Playlist Name *</label>
+                        <label className='text-white block mb-2'>Tên danh sách phát *</label>
                         <input
                             type='text'
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className='w-full p-2 rounded bg-[#3e3e3e] text-white outline-none'
-                            placeholder='My Awesome Playlist'
+                            placeholder='Danh sách phát tuyệt vời của tôi'
                             required
                         />
                     </div>
                     <div className='mb-4'>
-                        <label className='text-white block mb-2'>Description</label>
+                        <label className='text-white block mb-2'>Mô tả</label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             className='w-full p-2 rounded bg-[#3e3e3e] text-white outline-none resize-none'
-                            placeholder='Add a description...'
+                            placeholder='Thêm mô tả...'
                             rows='3'
                         />
                     </div>
                     <div className='mb-4'>
-                        <label className='text-white block mb-2'>Cover Image</label>
+                        <label className='text-white block mb-2'>Ảnh bìa</label>
                         <input
                             type='file'
                             accept='image/*'
@@ -98,14 +98,14 @@ const CreatePlaylistModal = ({ onClose }) => {
                             className='px-6 py-2 bg-transparent border border-white text-white rounded-full hover:bg-white hover:text-black transition'
                             disabled={loading}
                         >
-                            Cancel
+                            Hủy
                         </button>
                         <button
                             type='submit'
                             className='px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition'
                             disabled={loading}
                         >
-                            {loading ? 'Creating...' : 'Create'}
+                            {loading ? 'Đang tạo...' : 'Tạo'}
                         </button>
                     </div>
                 </form>

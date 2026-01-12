@@ -20,7 +20,7 @@ const DisplayAlbum = () => {
   };
 
   if (!albumData) {
-    return <div className='text-white p-8'>Album not found</div>
+    return <div className='text-white p-8'>Không tìm thấy Album</div>
   }
 
   return (
@@ -35,9 +35,9 @@ const DisplayAlbum = () => {
       </div>
 
       <div className='grid grid-cols-3 sm:grid-cols-4 mt-10 mb-4 pl-2 text-[#a7a7a7]'>
-        <p><b className='mr-4'>#</b>Title</p>
+        <p><b className='mr-4'>#</b>Tiêu đề</p>
         <p>Album</p>
-        <p className='hidden sm:block'>Date Added</p>
+        <p className='hidden sm:block'>Ngày thêm</p>
         <img className='m-auto w-4' src={assets.clock_icon} alt="" />
       </div>
       <hr />
@@ -56,7 +56,7 @@ const DisplayAlbum = () => {
             </div>
           ))
         ) : (
-          <div className='text-white p-8'>No songs in this album yet</div>
+          <div className='text-white p-8'>Album này chưa có bài hát nào</div>
         )
       }
     </>

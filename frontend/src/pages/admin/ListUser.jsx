@@ -13,10 +13,10 @@ const ListUser = () => {
             if (response.data.success) {
                 setData(response.data.users)
             } else {
-                toast.error("Error")
+                toast.error("Đã xảy ra lỗi")
             }
         } catch (error) {
-            toast.error("Error")
+            toast.error("Đã xảy ra lỗi")
         }
     }
 
@@ -27,10 +27,10 @@ const ListUser = () => {
                 toast.success(response.data.message);
                 await fetchUsers();
             } else {
-                toast.error("Error")
+                toast.error("Đã xảy ra lỗi")
             }
         } catch (error) {
-            toast.error("Error")
+            toast.error("Đã xảy ra lỗi")
         }
     }
 
@@ -40,17 +40,17 @@ const ListUser = () => {
 
     return (
         <div>
-            <h2 className='text-2xl font-bold mb-8'>All Users</h2>
+            <h2 className='text-2xl font-bold mb-8'>Tất cả người dùng</h2>
 
             <div className='overflow-x-auto'>
                 <table className='w-full min-w-[800px] border-collapse'>
                     <thead>
                         <tr className='bg-gray-100'>
                             <th className='p-3 text-left'>#</th>
-                            <th className='p-3 text-left'>Name</th>
+                            <th className='p-3 text-left'>Tên</th>
                             <th className='p-3 text-left'>Email</th>
                             <th className='p-3 text-left'>ID</th>
-                            <th className='p-3 text-left'>Action</th>
+                            <th className='p-3 text-left'>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,7 +65,7 @@ const ListUser = () => {
                                         onClick={() => removeUser(item._id)}
                                         className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600'
                                     >
-                                        Delete
+                                        Xóa
                                     </button>
                                 </td>
                             </tr>
@@ -74,7 +74,7 @@ const ListUser = () => {
                 </table>
                 {data.length === 0 && (
                     <div className='text-center py-8 text-gray-500'>
-                        No users found
+                        Không tìm thấy người dùng nào
                     </div>
                 )}
             </div>

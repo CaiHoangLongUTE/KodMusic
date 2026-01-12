@@ -31,28 +31,28 @@ const Register = () => {
                 <div className='flex justify-center mb-6'>
                     <img className='w-12' src={assets.music_note} alt="Logo" />
                 </div>
-                <h2 className='text-white text-3xl font-bold text-center mb-8'>Create Account</h2>
+                <h2 className='text-white text-3xl font-bold text-center mb-8'>Tạo tài khoản</h2>
 
                 {error && <div className='bg-red-500/20 border border-red-500 text-red-500 p-3 rounded-lg mb-4 text-sm'>{error}</div>}
 
                 <form onSubmit={handleSubmit} className='space-y-4'>
                     <div>
-                        <label className='text-gray-300 text-sm mb-2 block'>Name</label>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className='w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500 transition' placeholder='Your Name' />
+                        <label className='text-gray-300 text-sm mb-2 block'>Tên</label>
+                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className='w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500 transition' placeholder='Tên của bạn' />
                     </div>
                     <div>
                         <label className='text-gray-300 text-sm mb-2 block'>Email</label>
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className='w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500 transition' placeholder='your@email.com' />
                     </div>
                     <div>
-                        <label className='text-gray-300 text-sm mb-2 block'>Password</label>
+                        <label className='text-gray-300 text-sm mb-2 block'>Mật khẩu</label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength="6" className='w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500 transition' placeholder='••••••••' />
                     </div>
-                    <button type="submit" disabled={loading} className='w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed'>{loading ? 'Creating...' : 'Sign Up'}</button>
+                    <button type="submit" disabled={loading} className='w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed'>{loading ? 'Đang tạo...' : 'Đăng ký'}</button>
                 </form>
 
                 <div className='mt-6 text-center'>
-                    <p className='text-gray-400 text-sm'>Already have an account? <Link to="/login" className='text-green-500 hover:underline'>Log in</Link></p>
+                    <p className='text-gray-400 text-sm'>Đã có tài khoản? <Link to="/login" className='text-green-500 hover:underline'>Đăng nhập</Link></p>
                 </div>
             </div>
         </div>

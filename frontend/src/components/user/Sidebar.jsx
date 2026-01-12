@@ -31,11 +31,11 @@ const Sidebar = () => {
       <div className='bg-[#121212] h-[15%] rounded flex flex-col justify-around'>
         <div onClick={() => navigate('/')} className='flex items-center gap-3 pl-8 cursor-pointer'>
           <img className='w-6' src={assets.home_icon} alt="" />
-          <p className='font-bold'>Home</p>
+          <p className='font-bold'>Trang chủ</p>
         </div>
         <div onClick={() => setShowSearchModal(true)} className='flex items-center gap-3 pl-8 cursor-pointer'>
           <img className='w-6' src={assets.search_icon} alt="" />
-          <p className='font-bold'>Search</p>
+          <p className='font-bold'>Tìm kiếm</p>
         </div>
       </div>
 
@@ -43,7 +43,7 @@ const Sidebar = () => {
         <div className='p-4 flex items-center justify-between'>
           <div className='flex items-center gap-3'>
             <img className='w-8' src={assets.stack_icon} alt="" />
-            <p className='font-semibold'>Your Library</p>
+            <p className='font-semibold'>Thư viện</p>
           </div>
           <div className='flex items-center gap-3'>
             <img className='w-5' src={assets.arrow_icon} alt="" />
@@ -52,24 +52,24 @@ const Sidebar = () => {
         </div>
         <div className='p-4 bg-[#242424] rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mx-4'>
           <h1>
-            {playlistsData && playlistsData.length > 0 ? 'Your Playlists' : 'Create your playlist'}
+            {playlistsData && playlistsData.length > 0 ? 'Danh sách phát của bạn' : 'Tạo danh sách phát'}
           </h1>
           <p className='font-light'>
             {playlistsData && playlistsData.length > 0
               ? `${playlistsData.length} playlist${playlistsData.length > 1 ? 's' : ''}`
-              : "it's easy we will help you"}
+              : "thật dễ dàng, chúng tôi sẽ giúp bạn"}
           </p>
           <button
             onClick={handlePlaylistClick}
             className='px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4'
           >
-            {playlistsData && playlistsData.length > 0 ? 'Playlists' : 'Create PlayList'}
+            {playlistsData && playlistsData.length > 0 ? 'Danh sách phát' : 'Tạo danh sách phát'}
           </button>
         </div>
         <div className='p-4 bg-[#242424] rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mx-4 mt-4'>
-          <h1>Let's find some podcasts to follow</h1>
-          <p className='font-light'>we'll keep you update on new episodes</p>
-          <button className='px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4'>Browse podcasts</button>
+          <h1>Hãy tìm vài podcast để theo dõi</h1>
+          <p className='font-light'>chúng tôi sẽ cập nhật các tập mới cho bạn</p>
+          <button className='px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4'>Duyệt podcast</button>
         </div>
       </div>
 

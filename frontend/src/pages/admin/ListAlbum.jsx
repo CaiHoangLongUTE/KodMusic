@@ -19,7 +19,7 @@ const ListAlbum = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching albums:', error);
-      toast.error(error.response?.data?.message || "Error occurred while fetching albums");
+      toast.error(error.response?.data?.message || "Đã xảy ra lỗi khi tải danh sách album");
       setLoading(false);
     }
   }
@@ -27,10 +27,10 @@ const ListAlbum = () => {
   const removeAlbum = async (id) => {
     try {
       await axios.delete(`${url}/api/album/remove`, { data: { id } });
-      toast.success("Album removed successfully");
+      toast.success("Xóa album thành công");
       fetchAlbums();
     } catch (error) {
-      toast.error("Error removing album");
+      toast.error("Lỗi khi xóa album");
     }
   }
 
@@ -49,12 +49,12 @@ const ListAlbum = () => {
   return (
     <div>
       <div className='flex justify-between items-center mb-8'>
-        <h2 className='text-2xl font-bold'>All Albums</h2>
+        <h2 className='text-2xl font-bold'>Tất cả Album</h2>
         <button
           onClick={() => fetchAlbums()}
           className='px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700'
         >
-          Refresh
+          Làm mới
         </button>
       </div>
 
@@ -62,11 +62,11 @@ const ListAlbum = () => {
         <table className='w-full min-w-[800px] border-collapse'>
           <thead>
             <tr className='bg-gray-100'>
-              <th className='p-3 text-left'>Image</th>
-              <th className='p-3 text-left'>Name</th>
-              <th className='p-3 text-left'>Description</th>
-              <th className='p-3 text-left'>Background Color</th>
-              <th className='p-3 text-left'>Actions</th>
+              <th className='p-3 text-left'>Hình ảnh</th>
+              <th className='p-3 text-left'>Tên</th>
+              <th className='p-3 text-left'>Mô tả</th>
+              <th className='p-3 text-left'>Màu nền</th>
+              <th className='p-3 text-left'>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -89,7 +89,7 @@ const ListAlbum = () => {
                     onClick={() => removeAlbum(album._id)}
                     className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600'
                   >
-                    Delete
+                    Xóa
                   </button>
                 </td>
               </tr>
@@ -99,7 +99,7 @@ const ListAlbum = () => {
 
         {data.length === 0 && (
           <div className='text-center py-8 text-gray-500'>
-            No albums found
+            Không tìm thấy album nào
           </div>
         )}
       </div>

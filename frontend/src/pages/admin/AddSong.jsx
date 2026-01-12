@@ -22,7 +22,7 @@ const AddSong = () => {
       }
     } catch (error) {
       console.error('Error fetching albums:', error);
-      toast.error('Failed to load albums');
+      toast.error('Không thể tải danh sách album');
     }
   };
 
@@ -35,7 +35,7 @@ const AddSong = () => {
     setLoading(true);
 
     if (!song || !name) {
-      toast.error("Please fill in all required fields");
+      toast.error("Vui lòng điền đầy đủ thông tin");
       setLoading(false);
       return;
     }
@@ -59,7 +59,7 @@ const AddSong = () => {
         setSong(false);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Error adding song");
+      toast.error(error.response?.data?.message || "Lỗi khi thêm bài hát");
     }
     setLoading(false);
   }
@@ -72,14 +72,14 @@ const AddSong = () => {
     <form onSubmit={onSubmitHandler} className='flex flex-col items-start gap-8 text-gray-600'>
       <div className='flex gap-8'>
         <div className='flex flex-col gap-4'>
-          <p>Upload song</p>
+          <p>Tải lên bài hát</p>
           <input onChange={(e) => setSong(e.target.files[0])} type="file" id='song' accept='audio/*' hidden />
           <label htmlFor="song">
             <img src={song ? assets.upload_added : assets.upload_song} className='w-24 cursor-pointer' alt="" />
           </label>
         </div>
         <div className='flex flex-col gap-4'>
-          <p>Upload image</p>
+          <p>Tải lên hình ảnh</p>
           <input onChange={(e) => setImage(e.target.files[0])} type="file" id='image' accept='image/*' hidden />
           <label htmlFor="image">
             <img src={image ? URL.createObjectURL(image) : assets.upload_area} className='w-24 cursor-pointer' alt="" />
@@ -88,24 +88,24 @@ const AddSong = () => {
       </div>
 
       <div className='flex flex-col gap-2.5'>
-        <p>Song name</p>
-        <input onChange={(e) => setName(e.target.value)} value={name} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]' placeholder='Type here' type="text" required />
+        <p>Tên bài hát</p>
+        <input onChange={(e) => setName(e.target.value)} value={name} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]' placeholder='Nhập vào đây' type="text" required />
       </div>
       <div className='flex flex-col gap-2.5'>
-        <p>Song description</p>
-        <input onChange={(e) => setDesc(e.target.value)} value={desc} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]' placeholder='Type here' type="text" required />
+        <p>Mô tả bài hát</p>
+        <input onChange={(e) => setDesc(e.target.value)} value={desc} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]' placeholder='Nhập vào đây' type="text" required />
       </div>
       <div className='flex flex-col gap-2.5'>
         <p>Album</p>
         <select onChange={(e) => setAlbum(e.target.value)} value={album} className='bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-[max(40vw,250px)]'>
-          <option value="none">None</option>
+          <option value="none">Không</option>
           {albumData.map((item, index) => (
             <option key={index} value={item.name}>{item.name}</option>
           ))}
         </select>
       </div>
 
-      <button type="submit" className='text-base bg-black text-white py-2.5 px-14 cursor-pointer'>Add</button>
+      <button type="submit" className='text-base bg-black text-white py-2.5 px-14 cursor-pointer'>Thêm</button>
     </form>
   )
 }

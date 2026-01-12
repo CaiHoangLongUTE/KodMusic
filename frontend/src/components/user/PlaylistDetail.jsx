@@ -22,7 +22,7 @@ const PlaylistDetail = () => {
                 setPlaylist(res.data.playlist);
             }
         } catch (error) {
-            toast.error('Error fetching playlist details');
+            toast.error('Lỗi khi tải thông tin danh sách phát');
             navigate('/playlists');
         } finally {
             setLoading(false);
@@ -38,10 +38,10 @@ const PlaylistDetail = () => {
             await axios.delete(`${url}/api/playlist/remove-song`, {
                 data: { playlistId: id, songId }
             });
-            toast.success('Song removed from playlist');
+            toast.success('Đã xóa bài hát khỏi danh sách phát');
             fetchPlaylistDetails();
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error removing song');
+            toast.error(error.response?.data?.message || 'Lỗi khi xóa bài hát');
         }
     };
 
@@ -49,7 +49,7 @@ const PlaylistDetail = () => {
         if (playlist && playlist.songs && playlist.songs.length > 0) {
             playPlaylist(playlist);
         } else {
-            toast.error('No songs in playlist');
+            toast.error('Không có bài hát nào trong danh sách phát');
         }
     };
 
@@ -68,7 +68,7 @@ const PlaylistDetail = () => {
     if (loading) {
         return (
             <div className='w-full flex items-center justify-center h-full'>
-                <p className='text-white text-xl'>Loading...</p>
+                <p className='text-white text-xl'>Đang tải...</p>
             </div>
         );
     }
@@ -76,7 +76,7 @@ const PlaylistDetail = () => {
     if (!playlist) {
         return (
             <div className='w-full flex items-center justify-center h-full'>
-                <p className='text-white text-xl'>Playlist not found</p>
+                <p className='text-white text-xl'>Không tìm thấy danh sách phát</p>
             </div>
         );
     }
@@ -97,13 +97,13 @@ const PlaylistDetail = () => {
                     </div>
                 )}
                 <div className='flex-1'>
-                    <p className='text-sm text-white font-semibold'>PLAYLIST</p>
+                    <p className='text-sm text-white font-semibold'>DANH SÁCH PHÁT</p>
                     <h1 className='text-6xl font-bold text-white mt-2 mb-4'>{playlist.name}</h1>
                     {playlist.description && (
                         <p className='text-gray-300 mb-2'>{playlist.description}</p>
                     )}
                     <p className='text-sm text-gray-400'>
-                        {playlist.songs?.length || 0} song{playlist.songs?.length !== 1 ? 's' : ''}
+                        {playlist.songs?.length || 0} bài hát
                     </p>
                 </div>
             </div>
@@ -121,13 +121,13 @@ const PlaylistDetail = () => {
                     onClick={() => setShowAddSongsModal(true)}
                     className='px-6 py-2 bg-transparent border border-white text-white rounded-full hover:bg-white hover:text-black transition'
                 >
-                    Add Songs
+                    Thêm bài hát
                 </button>
                 <button
                     onClick={() => navigate('/playlists')}
                     className='px-6 py-2 bg-transparent border border-gray-400 text-gray-400 rounded-full hover:border-white hover:text-white transition'
                 >
-                    Back to Playlists
+                    Quay lại danh sách phát
                 </button>
             </div>
 
@@ -135,8 +135,8 @@ const PlaylistDetail = () => {
             <div className='px-8 pb-8'>
                 {!playlist.songs || playlist.songs.length === 0 ? (
                     <div className='text-center text-gray-400 py-12'>
-                        <p className='text-xl'>No songs in this playlist</p>
-                        <p className='mt-2'>Click "Add Songs" to get started!</p>
+                        <p className='text-xl'>Danh sách phát này chưa có bài hát nào</p>
+                        <p className='mt-2'>Nhấn "Thêm bài hát" để bắt đầu!</p>
                     </div>
                 ) : (
                     <div className='space-y-2'>
@@ -166,7 +166,7 @@ const PlaylistDetail = () => {
                                     }}
                                     className='opacity-0 group-hover:opacity-100 px-4 py-1.5 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition'
                                 >
-                                    Remove
+                                    Xóa
                                 </button>
                             </div>
                         ))}

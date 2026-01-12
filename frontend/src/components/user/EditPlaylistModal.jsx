@@ -17,7 +17,7 @@ const EditPlaylistModal = ({ playlist, onClose }) => {
         e.preventDefault();
 
         if (!name.trim()) {
-            toast.error('Please enter a playlist name');
+            toast.error('Vui lòng nhập tên danh sách phát');
             return;
         }
 
@@ -29,7 +29,7 @@ const EditPlaylistModal = ({ playlist, onClose }) => {
         }
 
         if (!userId) {
-            toast.error('Please login to edit playlist');
+            toast.error('Vui lòng đăng nhập để sửa danh sách phát');
             return;
         }
 
@@ -49,7 +49,7 @@ const EditPlaylistModal = ({ playlist, onClose }) => {
                 onClose();
             }
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error updating playlist');
+            toast.error(error.response?.data?.message || 'Lỗi khi cập nhật danh sách phát');
         } finally {
             setLoading(false);
         }
@@ -58,10 +58,10 @@ const EditPlaylistModal = ({ playlist, onClose }) => {
     return (
         <div className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50'>
             <div className='bg-[#282828] rounded-lg p-6 w-[90%] max-w-md'>
-                <h2 className='text-white text-2xl font-bold mb-4'>Edit Playlist</h2>
+                <h2 className='text-white text-2xl font-bold mb-4'>Sửa danh sách phát</h2>
                 <form onSubmit={handleSubmit}>
                     <div className='mb-4'>
-                        <label className='text-white block mb-2'>Playlist Name *</label>
+                        <label className='text-white block mb-2'>Tên danh sách phát *</label>
                         <input
                             type='text'
                             value={name}
@@ -71,7 +71,7 @@ const EditPlaylistModal = ({ playlist, onClose }) => {
                         />
                     </div>
                     <div className='mb-4'>
-                        <label className='text-white block mb-2'>Description</label>
+                        <label className='text-white block mb-2'>Mô tả</label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -80,7 +80,7 @@ const EditPlaylistModal = ({ playlist, onClose }) => {
                         />
                     </div>
                     <div className='mb-4'>
-                        <label className='text-white block mb-2'>Cover Image</label>
+                        <label className='text-white block mb-2'>Ảnh bìa</label>
                         <input
                             type='file'
                             accept='image/*'
@@ -88,7 +88,7 @@ const EditPlaylistModal = ({ playlist, onClose }) => {
                             className='w-full p-2 rounded bg-[#3e3e3e] text-white'
                         />
                         {playlist.image && !image && (
-                            <p className='text-gray-400 text-sm mt-1'>Current image will be kept if no new image is selected</p>
+                            <p className='text-gray-400 text-sm mt-1'>Ảnh hiện tại sẽ được giữ nếu không chọn ảnh mới</p>
                         )}
                     </div>
                     <div className='flex gap-3 justify-end'>
@@ -98,14 +98,14 @@ const EditPlaylistModal = ({ playlist, onClose }) => {
                             className='px-6 py-2 bg-transparent border border-white text-white rounded-full hover:bg-white hover:text-black transition'
                             disabled={loading}
                         >
-                            Cancel
+                            Hủy
                         </button>
                         <button
                             type='submit'
                             className='px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition'
                             disabled={loading}
                         >
-                            {loading ? 'Saving...' : 'Save'}
+                            {loading ? 'Đang lưu...' : 'Lưu'}
                         </button>
                     </div>
                 </form>
